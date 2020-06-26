@@ -125,8 +125,12 @@
 						<h7 class="card-title" th:text="${user.nom}+' '+${user.prenom}"></h7>
 
 						<center>
-							<button type="button" class="btn btn-outline-info"
-								style="margin-top: 8px;">Voir le profil</button>
+						<a th:href="@{/user/profile(id=${user.idUtl})}"
+											class="btn btn-outline-info stretched-link"
+											style="margin-top: 8px;">Voir le profil</a>
+						
+							<!--  <button type="button" class="btn btn-outline-info"
+								style="margin-top: 8px;" th:href="@{/user/profile(id=${user.idUtl})}">Voir le profil</button> -->
 						</center>
 					</div>
 				</div>
@@ -232,17 +236,22 @@
 						<div class="card-body">
 							<ul style="list-style-type: none;">
 								<li style="display: inline; float: left; margin-left: 1px;">
-									<img th:src="@{${'/img/' + a.user.profil.photo}}"
-									style="border-radius: 50%; width: 80px; height: 60px;">
+								<a th:href="@{/user/profile(id=${a.user.idUtl})}"><img th:src="@{${'/img/' + a.user.profil.photo}}"
+									style="border-radius: 50%; width: 80px; height: 60px;"> </a>
 								</li>
 								<li style="margin-top: 10px; float: left; margin-left: 15px;">
-									<h5 class="card-title"
-										th:text="${a.user.nom+' '+a.user.prenom}"></h5>
+								 <a th:href="@{/user/profile(id=${a.user.idUtl})}" style="color:#595959;">	<h5 class="card-title"
+										th:text="${a.user.nom+' '+a.user.prenom}" ></h5> </a>
+								</li>
+								<li style="float:right" th:if="${a.user.getIdUtl()== user.getIdUtl()}">
+								<a class="nav-link" onclick="return confirm('Voulez-vous vraiment supprimer cet article?')"
+								th:href="@{/user/articles/delete(id=${a.getIdArticle()})}"><i class="fa fa-trash-o" style="color: #ff4d4d;"></i></a>
+																
 								</li>
 							</ul>
 					
 						<div style="text-align: center; margin-top:70px; ">
-								<p class="card-text" th:text="${a.title}"></p>
+								<p  class="card-text" th:text="${a.title}"></p>
 							</div>
 						
 							<div style="margin-top: 20px;">
@@ -251,9 +260,9 @@
 
 						</div>
 						<div>
-							<button type="button" class="btn btn-light" style="float: right">
-								<i class="fa fa-warning" style="color: #FCE306;"></i> Signaler
-							</button>
+							  
+				<a style="float: right; color: #FCE306;" onclick="return confirm('Voulez-vous vraiment signaler cet article?')" th:href="@{/user/articles/signaler(id=${a.getIdArticle()})}" th:if="${a.user.getIdUtl()!= user.getIdUtl()}" ><i class="fa fa-warning" style="color: #FCE306;"></i>Signaler  </a> 
+							
 						</div>
 
 					</div>

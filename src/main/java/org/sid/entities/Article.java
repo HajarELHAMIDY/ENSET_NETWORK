@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Article implements Serializable {
 	@Id @GeneratedValue(strategy= GenerationType.IDENTITY)
-	private int idArticle;
+	private Long idArticle;
 	private String title;
 	private String description;
 	private int signale ;
@@ -30,10 +30,10 @@ public class Article implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getIdArticle() {
+	public Long getIdArticle() {
 		return idArticle;
 	}
-	public void setIdArticle(int idArticle) {
+	public void setIdArticle(Long idArticle) {
 		this.idArticle = idArticle;
 	}
 	public String getTitle() {

@@ -13,16 +13,22 @@ import org.springframework.stereotype.Service;
 public class MyLoginServiseDetails implements UserDetailsService{
     @Autowired
     LoginRepository loginRepository ;
+    Login login ;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Login login = loginRepository.findByUsername(username);
+		login = loginRepository.findByUsername(username);
 		if(login == null) {
 			throw new UsernameNotFoundException("User notFound");
 			}
 		return new UserPrincipal(login);
 		
 	}
+
+	public Login getLogin() {
+		return login;
+	}
+
 	
 
 }

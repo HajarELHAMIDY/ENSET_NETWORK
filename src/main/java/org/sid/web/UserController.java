@@ -80,5 +80,24 @@ public class UserController {
 		return "redirect:/user/articles";
 	}
 	
+	@GetMapping("/user/articles/delete")
+	public String deleteArticle(Model model, Long id) {
+		articledao.deleteById(id);
+		return "redirect:/user/articles";
+	}
+	
+	@GetMapping("/user/articles/signaler")
+	public String signalerArticle(Model model, Long id) {
+		Article article=articledao.findById(id).get();
+		article.setSignale(article.getSignale()+1);
+		articledao.save(article);
+		if(article.getSignale()==6) {
+			articledao.deleteById(id);
+			return "redirect:/user/articles";
+		}
+		else {
+		return "redirect:/user/articles";
+		}
+	}
 
 }

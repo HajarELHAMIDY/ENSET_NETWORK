@@ -2,7 +2,7 @@ package org.sid.security;
 
 import javax.sql.DataSource;
 
-
+import org.sid.entities.Login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,35 +21,35 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
 	@Autowired
 	MyLoginServiseDetails userServise;
 
+	Login login ;
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-	
-		/*
-		 * auth.jdbcAuthentication().dataSource(dataSource) .usersByUsernameQuery(
-		 * "select username as principal, pwd as credentials, active from login where username =?"
-		 * ) .authoritiesByUsernameQuery(
-		 * "select username as principal,role as role from users_roles where username =?"
-		 * ). rolePrefix("ROLE_"). passwordEncoder(NoOpPasswordEncoder.getInstance() ) ;
-		 */
+
 		auth.authenticationProvider(authenticationProvider());
-		
+			
 	}
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
     	DaoAuthenticationProvider daoAuth = new DaoAuthenticationProvider();
     	daoAuth.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
     	daoAuth.setUserDetailsService(userServise);
+    
     	return daoAuth;
     }
+ 
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		http.formLogin(); 
-	//	http.formLogin().loginPage("/login"); //
-
-	//
-
+	
+        	http.formLogin();
+       
+		
+		//http.formLogin().loginPage("/login"); //
+        
+    http.formLogin().defaultSuccessUrl("/default");
+        
+       // http.authorizeRequests().antMatchers("/admin/admins").access("hasRole('ROLE_ADMIN')");
 		http.authorizeRequests().antMatchers("/admin/*").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/user/*").hasRole("USER");
 		http.authorizeRequests().antMatchers("/home","/login","/css/**").permitAll();

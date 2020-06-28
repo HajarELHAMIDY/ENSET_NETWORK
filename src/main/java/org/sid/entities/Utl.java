@@ -16,12 +16,28 @@ public class Utl implements Serializable{
 	private String nom;
 	private String prenom;
 	private String photo;
-	public Utl(Long idUt, String nom, String prenom, String photo) {
+	private String filiere;
+	private String promo;
+	public Utl(Long idUt, String nom, String prenom, String photo,String filiere,String promo) {
 		super();
 		this.idUt = idUt;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.photo = photo;
+		this.filiere = filiere;
+		this.promo = promo;
+	}
+	public String getFiliere() {
+		return filiere;
+	}
+	public void setFiliere(String filiere) {
+		this.filiere = filiere;
+	}
+	public String getPromo() {
+		return promo;
+	}
+	public void setPromo(String promo) {
+		this.promo = promo;
 	}
 	public Long getIdUt() {
 		return idUt;

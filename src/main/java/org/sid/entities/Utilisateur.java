@@ -15,7 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
+@JsonIgnoreType
 public class Utilisateur implements Serializable {
 
 	@Id
@@ -44,9 +49,9 @@ public class Utilisateur implements Serializable {
 	private Promo promo;
 
 
-	public Utilisateur(Long idUtl, String nom, String prenom, String adresse) {
+	public Utilisateur(String nom, String prenom, String adresse) {
 		super();
-		this.idUtl = idUtl;
+	
 		this.nom = nom;
 		this.prenom = prenom;
 		this.adresse = adresse;

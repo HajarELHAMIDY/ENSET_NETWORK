@@ -37,34 +37,39 @@
 
 <body id="page-top">
  
-   <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+   	<nav
+		class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-        <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark color fixed-top shadow" >
-<div class="container">
-  <a class="navbar-brand" href="/navbarexemple"><img alt="Brand" src="/img/logo2f.png"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+		<nav
+			class="navbar navbar-icon-top navbar-expand-lg navbar-dark color fixed-top shadow">
+			<div class="container">
+				<a class="navbar-brand" href="/navbarexemple"><img alt="Brand"
+					src="/img/logo2f.png"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
-    <input type="text" class="form-control" placeholder="Rechercher">
-  </div>
-    <ul class="navbar-nav mr-auto">
-      
-     
-    </ul>
-    <ul class="navbar-nav ">
-   	<li class="nav-item active"><a class="nav-link"
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div class="form-group has-search">
+						<span class="fa fa-search form-control-feedback"></span> <input
+							type="text" class="form-control" placeholder="Rechercher">
+					</div>
+					<ul class="navbar-nav mr-auto">
+
+
+					</ul>
+					<ul class="navbar-nav ">
+						<li class="nav-item active"><a class="nav-link"
 							href="/navbarexemple"> <i class="fa fa-home"></i> Accueil
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="/Reseau">
 								<i class="fa fa-users"></i> Réseau
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
-							th:href="@{/user/articles}"> <i class="fa fa-bars"></i>
-								Articles
+							th:href="@{/user/articles}"> <i class="fa fa-bars"></i> Articles
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							th:href="@{/user/cour}"> <i class="fa fa-book"></i> Cours
@@ -72,82 +77,94 @@
 						<li class="nav-item"><a class="nav-link" href="/Message">
 								<i class="fa fa-envelope"></i> Message
 						</a></li>
-      
-      
-  
-            
-       <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <img class="rounded-circle" alt="Brand" src="/img/omar.jpg" width="80" height="60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div style="font-size: 20px;" class="dropdown-menu dropdown-menu-right shadow animated--grow-in " aria-labelledby="userDropdown">
-              
-                <a class="dropdown-item " href="#"><img src="/img/omar.jpg" width="80" height="80" class="shadow rounded-circle">Omar El Ouahdani </a>
-                <div class="dropdown-divider" style="font-size: 20px;"></div>
-            
-                <a class="dropdown-item " th:href="@{/user/editProfil(id=${profil.idProfil})}"><i class="fa fa-cog"></i>Paramètres</a>
-                <a class="dropdown-item " href="#"><i class="fa fa-sign-out" ></i>Se déconnecter</a>
-              </div>
-            </li>
-    
-    </ul>
-    
-  </div>
-  </div>
-</nav>
-          
 
+
+
+
+						<!-- Nav Item - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <img class="rounded-circle"
+								alt="Brand" th:src="@{${'/img/' + user.profil.photo}}"
+								width="80" height="60">
+						</a> <!-- Dropdown - User Information -->
+							<div style="font-size: 20px;"
+								class="dropdown-menu dropdown-menu-right shadow animated--grow-in "
+								aria-labelledby="userDropdown">
+
+								<a class="dropdown-item"
+									th:text="${user.nom}+' '+${user.prenom}"></a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+									<a class="dropdown-item"
+									th:href="@{/user/profile(id=${user.idUtl})}"><i
+									></i>Voir le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+								<a class="dropdown-item"
+									th:href="@{/user/editProfil(id=${user.profil.idProfil})}"><i
+									></i> Gérer le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+              
+
+								<a class="dropdown-item " th:href="@{/logout}"><i
+									class="fa fa-sign-out"></i>Se déconnecter</a>
+							</div></li>
+
+					</ul>
+
+				</div>
+			</div>
+		</nav>
+
+
+	</nav>
         </nav>
         
   <!-- Page Wrapper -->
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul style="width: 300px;padding-left: 20px;" class="navbar-nav  sidebar sidebar-dark accordion backg" 	>
-       <li style="width: 250px;">
-       <div class="card border-left-primary shadow h-200 py-2" style="align-items: center;">
-                <div class="card-body ">
-                  <div class="row  align-items-center ">
-                    <div class="col mr-2">
-                      <div class=" font-weight-bold text-primary  mb-10 " style="font-size: 28px;align-content: center;"><label>GLSID</label></div>
-                      
-                    </div>
-                   
-                  </div>
-                </div>
-              </div>
-              </li>
-              
-              <li style="width: 250px;" class="active">
-              <hr style="border-bottom: 1px dotted #8c8b8b;">
-              <a class="nav-link" href="index.html"  style="font-size: 26px;">
-          <i class="fas fa-fw fa-tachometer-alt" ></i>
-          <span>Les Promos</span></a>
-          <hr style="border-bottom: 1px dotted #8c8b8b;">
-              </li>
-              
-           <li style="width: 250px;height: 60px;font-size: 20px;">
-           
-           <div style="font-size: 20px;">
-           
-                <a class="dropdown-item" href="#" style="font-size: 18px;font-weight: bold;">
-                  
-                  <label>2020</label> -  <label>2022</label>
-                </a>
-                  <hr style="border-bottom: 1px dotted #8c8b8b;">
-              </div>
-         
-           
-           </li>
-            
-       
-              
+<ul
+			class="navbar-nav bg-white  sidebar accordion shadow-lg col-md-2 col-xs-6"
+			id="accordionSidebar" style="margin-left: 50px; margin-top: 20px;">
 
-    
 
-    </ul>
+
+
+			<!-- Divider -->
+			<div class="p-3 mb-3 bg-white rounded">
+				<div class="card"
+					style="margin-left: 5px; border: 1px solid #31577C; background-color: #EFF3F7;">
+
+					<img th:src="@{${'/img/' + user.profil.photo}}"
+						style="margin-left: auto; margin-top: 5px; margin-right: auto; width: 50%; border-radius: 50%; height: 80px;" />
+
+					<div class="card-body">
+						<h7 class="card-title" th:text="${user.nom}+' '+${user.prenom}" style="margin-left:8px;"></h7>
+
+					
+							<button type="button" class="btn btn-outline-info"
+								style="margin-left:-8px;">Voir le profil</button>
+					
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Nav Item - Dashboard -->
+			<li id="item" class="nav-item" th:each="f:${filieres}"><a
+				class="nav-link" th:href="@{/user/promo(nom=${f.nom})}"> <i
+					class="fa fa-group" style="color: #31577C;"></i> <span
+					th:text="Profiles+' '+${f.nom}"
+					style="color: #31577C; margin-left: 10px; font-size: 15px;"></span>
+			</a>
+				<hr class="sidebar-divider my-0" style=""></li>
+
+
+
+
+
+		</ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->

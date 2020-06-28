@@ -19,8 +19,7 @@
 <title>Espace Articles</title>
 
 <!-- Custom fonts for this template-->
-<link href="/fontawesome-free/all.min.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
@@ -28,7 +27,21 @@
 <!-- Custom styles for this template-->
 <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/model.css">
-
+<style>
+  #result {
+   position: absolute;
+   width: 50%;
+   max-width:870px;
+   cursor: point	er;
+   overflow-y: auto;
+   max-height: 400px;
+   box-sizing: border-box;
+   z-index: 1001;
+  }
+  .link-class:hover{
+   background-color:#f1f1f1;
+  }
+  </style>
 
 </head>
 <body>
@@ -50,7 +63,8 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<div class="form-group has-search">
 						<span class="fa fa-search form-control-feedback"></span> <input
-							type="text" class="form-control" placeholder="Rechercher">
+				id="txtSearch"	type="text" class="form-control" placeholder="Rechercher" name="keyword">
+				 <ul class="list-group" id="result"></ul>
 					</div>
 					<ul class="navbar-nav mr-auto">
 
@@ -130,7 +144,7 @@
 						style="margin-left: auto; margin-top: 5px; margin-right: auto; width: 50%; border-radius: 50%; height: 80px;" />
 
 					<div class="card-body">
-						<h7 class="card-title" th:text="${user.nom}+' '+${user.prenom}"></h7>
+						<h7 class="card-title" th:text="${user.nom}+' '+${user.prenom}" style="margin-left:8px;"></h7>
 
 						<center>
 							<button type="button" class="btn btn-outline-info"
@@ -318,5 +332,55 @@
 		</div>
 		<p class="footer-company-name">GLSID © 2020</p>
 	</footer>
+	<script th:inline="javascript">
+	 /*<![CDATA[*/
+    
+    var utilisateurs =  /*[[${utilisateurs}]]*/;
+
+  /*]]>*/
+
+	$('#txtSearch').on('keyup',function(){
+		var value = $(this).val();
+		console.log('value = '+ value);
+	
+		
+		//get filtered utilisateur list
+		var data  = filterFunction(value, utilisateurs);
+		rebuildUl(data);
+	});
+	
+	function filterFunction(value, data)
+	{
+		var filteredData = [];
+		for(var i = 0 ; i<data.length;i++)
+			{
+			value = value.toLowerCase();
+			var fname = data[i].nom.toLowerCase();
+			var lname = data[i].prenom.toLowerCase();
+			console.log('fname = '+ fname);
+			console.log('photo = '+ data[i].photo);
+			if(fname.includes(value) || lname.includes(value) )
+				{
+				filteredData.push(data[i]);
+				
+				}
+			}
+		return filteredData;
+	}
+	function rebuildUl(data)
+	{
+		var ul = document.getElementById('result');
+		ul.innerHTML = '';
+		for(var i = 0 ; i<data.length;i++)
+			{
+		var li =	"<li class=\"list-group-item link-class\"> <img   src=\"/img/"+data[i].photo+"\"  height=\"60\" width=\"60\" class=\"img-thumbnail\" />    | " + data[i].nom + "  | <span class=\"text-muted\"> "+ data[i].prenom + "</span></li>";
+		ul.innerHTML += li;
+			}
+		
+	}
+	
+	
+	
+	</script>
 </body>
 </html>

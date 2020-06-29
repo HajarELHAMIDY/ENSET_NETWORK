@@ -73,6 +73,7 @@ public class CourControler {
 		 Principal p = req.getUserPrincipal();
 		 model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
 		model.addAttribute("cours",cours);
+		model.addAttribute("crs",cours);
 		model.addAttribute("coursType",crs);
 		model.addAttribute("images",images);
 		
@@ -91,7 +92,7 @@ public class CourControler {
 		
     }
 	@GetMapping(path = "/user/CourRecherche")
-    public String courRecherche(HttpServletRequest  req,Model model,@RequestParam(name = "TypeCour",defaultValue = "") long  id) {
+    public String courRecherche(HttpServletRequest  req,Model model,@RequestParam(name = "id") long  id) {
 		  List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
 		    List<Utl> utls = new ArrayList<Utl>();
 		    
@@ -113,6 +114,7 @@ public class CourControler {
 		List<TypeCour> crs   = typeCourRepisitory.findAll();
 		
 		List<Cour> cours = courRepository.findByid_TypeCour(id);
+		List<Cour> courss = courRepository.findAll();
 		List<String> images = new ArrayList<String>();
 		 Principal p = req.getUserPrincipal();
 		 model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
@@ -121,10 +123,48 @@ public class CourControler {
         	{
         		images.add("jee.jpg");
         	}
-          });
+          });	
 	   
 	    	
 		model.addAttribute("cours",cours);
+		model.addAttribute("crs",courss);
+		model.addAttribute("coursType",crs);
+		model.addAttribute("images",images);
+		
+		return "/user/PageCour";
+    }
+	@GetMapping(path = "/user/CourSearsh")
+    public String CourSearsh(HttpServletRequest  req,Model model,@RequestParam(name = "id") long  id) {
+		  List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+		    List<Utl> utls = new ArrayList<Utl>();
+		    
+
+		    utilisateurs.forEach(e->{
+		    	System.out.println(e.getNom());
+		    	System.out.println(e.getProfil().getPhoto());
+		    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+				String dt_ent = date_ent[0];
+				String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+				String dt_srt = date_sort[0];
+				String promo = dt_ent + "-" + dt_srt;
+		    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+		    utls.add(utl);
+		    	System.out.println(e.getCompte().getCNE());
+		    	System.out.println(e.getProfil().getPhoto());
+		    });
+			model.addAttribute("utilisateurs",utls);
+		List<TypeCour> crs   = typeCourRepisitory.findAll();
+		
+		Cour cours = courRepository.findById(id).get();
+		List<Cour> courss = courRepository.findAll();
+		List<String> images = new ArrayList<String>();
+		 Principal p = req.getUserPrincipal();
+		 model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
+		
+	   
+	    	
+		model.addAttribute("cours",cours);
+		model.addAttribute("crs",courss);
 		model.addAttribute("coursType",crs);
 		model.addAttribute("images",images);
 		

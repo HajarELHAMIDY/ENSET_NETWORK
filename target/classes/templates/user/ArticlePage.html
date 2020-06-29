@@ -347,6 +347,15 @@
     var utilisateurs =  /*[[${utilisateurs}]]*/;
 
   /*]]>*/
+   window.onload = function(){
+            var txtSearch = document.getElementById('txtSearch');
+            document.onclick = function(e){
+               if(e.target.id !== 'txtSearch'){
+            	   document.getElementById('result').innerHTML = "";
+            	   document.getElementById('txtSearch').value = "";
+               }
+            };
+         };
 
 	$('#txtSearch').on('keyup',function(){
 		var value = $(this).val();

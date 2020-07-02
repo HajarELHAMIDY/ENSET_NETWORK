@@ -41,6 +41,9 @@
   .link-class:hover{
    background-color:#f1f1f1;
   }
+  .img-thumbnail{
+   height= 20px;
+   }
   </style>
 
 </head>
@@ -391,7 +394,7 @@
 		ul.innerHTML = '';
 		for(var i = 0 ; i<data.length;i++)
 			{
-		var li =	"<a  id=\"demo\" href=\"/user/profile?id="+data[i].idUt+"\"><li class=\"list-group-item link-class\" > <img   src=\"/img/"+data[i].photo+"\"  height=\"60\" width=\"60\" class=\"img-thumbnail\" />       " + data[i].nom + "  | <span > "+ data[i].prenom + "</span> <span class=\"text-muted\" > | filière  "+ data[i].filiere + "</span><span class=\"text-muted\" > | promo  "+ data[i].promo + "</span></li></a>";
+		var li =	"<a  id=\"demo\" href=\"/user/profile?id="+data[i].idUt+"\"><li  class=\"list-group-item link-class\" > <img   src=\"/img/"+data[i].photo+"\"   height=\"70\"    width=\"70\"  class=\"rounded\"  />       " + data[i].nom + "  | <span > "+ data[i].prenom + "</span> <span class=\"text-muted\" > | filière  "+ data[i].filiere + "</span><span class=\"text-muted\" > | promo  "+ data[i].promo + "</span></li></a>";
 		ul.innerHTML += li;
 		
 			}

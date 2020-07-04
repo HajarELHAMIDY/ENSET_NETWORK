@@ -19,8 +19,7 @@
 <title>Espace Articles</title>
 
 <!-- Custom fonts for this template-->
-<link href="/fontawesome-free/all.min.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
@@ -28,7 +27,24 @@
 <!-- Custom styles for this template-->
 <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/model.css">
-
+<style>
+  #result {
+   position: absolute;
+   width: 50%;
+   max-width:870px;
+   cursor: point	er;
+   overflow-y: auto;
+   max-height: 400px;
+   box-sizing: border-box;
+   z-index: 1001;
+  }
+  .link-class:hover{
+   background-color:#f1f1f1;
+  }
+  .img-thumbnail{
+   height= 20px;
+   }
+  </style>
 
 </head>
 <body>
@@ -50,7 +66,8 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<div class="form-group has-search">
 						<span class="fa fa-search form-control-feedback"></span> <input
-							type="text" class="form-control" placeholder="Rechercher">
+				id="txtSearch"	type="text" class="form-control" placeholder="Rechercher" name="keyword">
+				 <ul class="list-group" id="result"></ul>
 					</div>
 					<ul class="navbar-nav mr-auto">
 
@@ -133,8 +150,12 @@
 						<h7 class="card-title" th:text="${user.nom}+' '+${user.prenom}" style="margin-left:8px;"></h7>
 
 						<center>
-							<button type="button" class="btn btn-outline-info"
-								style="margin-top: 8px;">Voir le profil</button>
+						<a th:href="@{/user/profile(id=${user.idUtl})}"
+											class="btn btn-outline-info stretched-link"
+											style="margin-top: 8px;">Voir le profil</a>
+						
+							<!--  <button type="button" class="btn btn-outline-info"
+								style="margin-top: 8px;" th:href="@{/user/profile(id=${user.idUtl})}">Voir le profil</button> -->
 						</center>
 					</div>
 				</div>
@@ -240,17 +261,22 @@
 						<div class="card-body">
 							<ul style="list-style-type: none;">
 								<li style="display: inline; float: left; margin-left: 1px;">
-									<img th:src="@{${'/img/' + a.user.profil.photo}}"
-									style="border-radius: 50%; width: 80px; height: 60px;">
+								<a th:href="@{/user/profile(id=${a.user.idUtl})}"><img th:src="@{${'/img/' + a.user.profil.photo}}"
+									style="border-radius: 50%; width: 80px; height: 60px;"> </a>
 								</li>
 								<li style="margin-top: 10px; float: left; margin-left: 15px;">
-									<h5 class="card-title"
-										th:text="${a.user.nom+' '+a.user.prenom}"></h5>
+								 <a th:href="@{/user/profile(id=${a.user.idUtl})}" style="color:#595959;">	<h5 class="card-title"
+										th:text="${a.user.nom+' '+a.user.prenom}" ></h5> </a>
+								</li>
+								<li style="float:right" th:if="${a.user.getIdUtl()== user.getIdUtl()}">
+								<a class="nav-link" onclick="return confirm('Voulez-vous vraiment supprimer cet article?')"
+								th:href="@{/user/articles/delete(id=${a.getIdArticle()})}"><i class="fa fa-trash-o" style="color: #ff4d4d;"></i></a>
+																
 								</li>
 							</ul>
 					
 						<div style="text-align: center; margin-top:70px; ">
-								<p class="card-text" th:text="${a.title}"></p>
+								<p  class="card-text" th:text="${a.title}"></p>
 							</div>
 						
 							<div style="margin-top: 20px;">
@@ -259,9 +285,9 @@
 
 						</div>
 						<div>
-							<button type="button" class="btn btn-light" style="float: right">
-								<i class="fa fa-warning" style="color: #FCE306;"></i> Signaler
-							</button>
+							  
+				<a style="float: right; color: #FCE306;" onclick="return confirm('Voulez-vous vraiment signaler cet article?')" th:href="@{/user/articles/signaler(id=${a.getIdArticle()})}" th:if="${a.user.getIdUtl()!= user.getIdUtl()}" ><i class="fa fa-warning" style="color: #FCE306;"></i>Signaler  </a> 
+							
 						</div>
 
 					</div>
@@ -318,5 +344,66 @@
 		</div>
 		<p class="footer-company-name">GLSID © 2020</p>
 	</footer>
+	<script th:inline="javascript">
+	 /*<![CDATA[*/
+    
+    var utilisateurs =  /*[[${utilisateurs}]]*/;
+
+  /*]]>*/
+   window.onload = function(){
+            var txtSearch = document.getElementById('txtSearch');
+            document.onclick = function(e){
+               if(e.target.id !== 'txtSearch'){
+            	   document.getElementById('result').innerHTML = "";
+            	   document.getElementById('txtSearch').value = "";
+               }
+            };
+         };
+
+	$('#txtSearch').on('keyup',function(){
+		var value = $(this).val();
+		console.log('value = '+ value);
+	
+		
+		//get filtered utilisateur list
+		var data  = filterFunction(value, utilisateurs);
+		rebuildUl(data);
+	});
+	
+	function filterFunction(value, data)
+	{
+		var filteredData = [];
+		for(var i = 0 ; i<data.length;i++)
+			{
+			value = value.toLowerCase();
+			var fname = data[i].nom.toLowerCase();
+			var lname = data[i].prenom.toLowerCase();
+			console.log('fname = '+ fname);
+			console.log('photo = '+ data[i].photo);
+			if(fname.includes(value) || lname.includes(value) )
+				{
+				filteredData.push(data[i]);
+				
+				}
+			}
+		return filteredData;
+	}
+	function rebuildUl(data)
+	{
+		var ul = document.getElementById('result');
+		ul.innerHTML = '';
+		for(var i = 0 ; i<data.length;i++)
+			{
+		var li =	"<a  id=\"demo\" href=\"/user/profile?id="+data[i].idUt+"\"><li  class=\"list-group-item link-class\" > <img   src=\"/img/"+data[i].photo+"\"   height=\"70\"    width=\"70\"  class=\"rounded\"  />       " + data[i].nom + "  | <span > "+ data[i].prenom + "</span> <span class=\"text-muted\" > | filière  "+ data[i].filiere + "</span><span class=\"text-muted\" > | promo  "+ data[i].promo + "</span></li></a>";
+		ul.innerHTML += li;
+		
+			}
+		
+		
+	}
+	
+	
+	
+	</script>
 </body>
 </html>

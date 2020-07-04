@@ -1,6 +1,7 @@
 package org.sid.web;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,9 +39,26 @@ public class PromoControler {
 		
     Filiere filiere     = filiereRepository.findByNom(nom);
     Principal p = req.getUserPrincipal();
-
+    
     List<Promo> ps  =  promoRepository.findByid_Filiere(filiere.getIdFiliere());
+    List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+    List<Utl> utls = new ArrayList<Utl>();
+    
 
+    utilisateurs.forEach(e->{
+    	System.out.println(e.getNom());
+    	System.out.println(e.getProfil().getPhoto());
+    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+		String dt_ent = date_ent[0];
+		String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+		String dt_srt = date_sort[0];
+		String promo = dt_ent + "-" + dt_srt;
+    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+    utls.add(utl);
+    	System.out.println(e.getCompte().getCNE());
+    	System.out.println(e.getProfil().getPhoto());
+    });
+	model.addAttribute("utilisateurs",utls);
 	model.addAttribute("filiere", filiere);
 	model.addAttribute("promos", ps);
 	model.addAttribute("user",logindao.findByUsername(p.getName()).getUser());
@@ -54,8 +72,25 @@ public class PromoControler {
 	    Principal p = req.getUserPrincipal();
 	    List<Promo> ps  =  promoRepository.findByid_Filiere(filiere.getIdFiliere());
 	    List<Utilisateur> utls  =  utilisateurRepository.findByid_Promo(id_promo,nom);
+	    List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+	    List<Utl> utlss = new ArrayList<Utl>();
+	    
+
+	    utilisateurs.forEach(e->{
+	    	System.out.println(e.getNom());
+	    	System.out.println(e.getProfil().getPhoto());
+	    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+			String dt_ent = date_ent[0];
+			String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+			String dt_srt = date_sort[0];
+			String promo = dt_ent + "-" + dt_srt;
+	    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+	    utlss.add(utl);
+	    	System.out.println(e.getCompte().getCNE());
+	    	System.out.println(e.getProfil().getPhoto());
+	    });
+		model.addAttribute("utilisateur",utlss);
 	    model.addAttribute("user",logindao.findByUsername(p.getName()).getUser());
-	
 		model.addAttribute("filiere", filiere);
 		model.addAttribute("promos", ps);
 		model.addAttribute("utilisateurs", utls);

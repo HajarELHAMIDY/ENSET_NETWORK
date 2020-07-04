@@ -25,6 +25,15 @@ public class UserPrincipal implements UserDetails {
 		authorities.add(auth);
 		return authorities;
 	}
+	
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
 
 	@Override
 	public String getPassword() {

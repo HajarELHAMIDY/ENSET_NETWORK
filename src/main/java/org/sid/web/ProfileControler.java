@@ -1,6 +1,7 @@
 package org.sid.web;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ import org.sid.entities.Login;
 import org.sid.entities.Profil;
 import org.sid.entities.RS;
 import org.sid.entities.Utilisateur;
+import org.sid.entities.Utl;
 
 @Controller
 public class ProfileControler {
@@ -42,6 +44,7 @@ public class ProfileControler {
 	@GetMapping(path = "/user/profile")
 	public String profil(Model model, @RequestParam(name = "id", defaultValue = "") Long id, HttpServletRequest req) {
 		Utilisateur utl = utilisateurRepository.findById(id).get();
+	    //System.out.println(utl.getProfil().getPhoto());
 		Principal p = req.getUserPrincipal();
 		model.addAttribute("user", loginRepository.findByUsername(p.getName()).getUser());
 		Profil prf = utl.getProfil();
@@ -57,6 +60,24 @@ public class ProfileControler {
 		String date_aniv = aniv[1] + "-" + s[0];
 
 		List<RS> reseau_sociaux = rsReppository.findByid_Profil(prf.getIdProfil());
+		List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+	    List<Utl> utls = new ArrayList<Utl>();
+	    
+
+	    utilisateurs.forEach(e->{
+	    	System.out.println(e.getNom());
+	    	System.out.println(e.getProfil().getPhoto());
+	    	String[] date_entt = e.getPromo().getDat_ent().toString().split("-");
+			String dt_entt = date_ent[0];
+			String[] date_sortt = e.getPromo().getDat_srt().toString().split("-");
+			String dt_srtt = date_sortt[0];
+			String prommo = dt_entt + "-" + dt_srtt;
+	    Utl utll = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),prommo);
+	    utls.add(utll);
+	    	System.out.println(e.getCompte().getCNE());
+	    	System.out.println(e.getProfil().getPhoto());
+	    });
+		model.addAttribute("utilisateurs",utls);
 
 		model.addAttribute("profile", prf);
 		model.addAttribute("promo", promo);
@@ -71,6 +92,24 @@ public class ProfileControler {
 
 	@GetMapping(path = "/user/editProfil")
 	public String edit(Model model, Long id, HttpServletRequest req) {
+		  List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+		    List<Utl> utls = new ArrayList<Utl>();
+		    
+
+		    utilisateurs.forEach(e->{
+		    	System.out.println(e.getNom());
+		    	System.out.println(e.getProfil().getPhoto());
+		    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+				String dt_ent = date_ent[0];
+				String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+				String dt_srt = date_sort[0];
+				String promo = dt_ent + "-" + dt_srt;
+		    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+		    utls.add(utl);
+		    	System.out.println(e.getCompte().getCNE());
+		    	System.out.println(e.getProfil().getPhoto());
+		    });
+			model.addAttribute("utilisateurs",utls);
 		Profil prf = profileRepository.findById(id).get();
 		Utilisateur utl = utilisateurRepository.findByid_Profil(prf.getIdProfil());
 		Principal p = req.getUserPrincipal();

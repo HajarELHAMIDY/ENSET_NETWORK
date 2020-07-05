@@ -402,7 +402,19 @@
 		
 	}
 	
-	
+	fetch("https://companies-data1.p.rapidapi.com/api/v1/%7Bcountry%7D/companies/1", {
+		"method": "GET",
+		"headers": {
+			"x-rapidapi-host": "companies-data1.p.rapidapi.com",
+			"x-rapidapi-key": "f37c377fe4mshb53550d17efd48bp10382cjsnb3e4c9f1d3e8"
+		}
+	})
+	.then(response => {
+		console.log(response);
+	})
+	.catch(err => {
+		console.log(err);
+	});
 	
 	</script>
 </body>

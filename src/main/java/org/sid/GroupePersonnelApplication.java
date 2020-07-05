@@ -49,12 +49,11 @@ public class GroupePersonnelApplication  implements CommandLineRunner {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(GroupePersonnelApplication.class, args);
-		
-		
+
 	}
 	@Override
 	public void run(String... args) throws Exception {
-	Profil prf = profileRepository.findById((long) 1).get();
+	/*Profil prf = profileRepository.findById((long) 1).get();
 	
 	System.out.println(prf.getDescription());
 	Profil pr = profileRepository.findByDescription("%ELOUAHDANI");
@@ -91,7 +90,7 @@ public class GroupePersonnelApplication  implements CommandLineRunner {
 		    	reseau_sociaux.forEach(e -> {
 		    		System.out.println(e.getLien());
 		    		
-		    	});
+		    	});*/
 	}	
     
 

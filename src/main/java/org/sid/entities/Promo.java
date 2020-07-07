@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Promo implements Serializable  {
 	@Id
@@ -19,10 +21,11 @@ public class Promo implements Serializable  {
 	private Long id;
 	private Date dat_ent;
 	private Date dat_srt;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_fil")
 	private Filiere filiere;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "promo",fetch = FetchType.LAZY)
 	List<Utilisateur> users ;
 	public Promo(Long id,Date dat_ent, Date dat_srt)

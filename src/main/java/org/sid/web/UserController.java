@@ -39,9 +39,9 @@ public class UserController {
 	    List<Utl> utls = new ArrayList<Utl>();
 	    
 
-	    utilisateurs.forEach(e->{
-	    	System.out.println(e.getNom());
-	    	System.out.println(e.getProfil().getPhoto());
+	  /*  utilisateurs.forEach(e->{
+	    	//System.out.println(e.getNom());
+	    	//System.out.println(e.getProfil().getPhoto());
 	    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
 			String dt_ent = date_ent[0];
 			String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
@@ -52,7 +52,7 @@ public class UserController {
 	    	System.out.println(e.getCompte().getCNE());
 	    	System.out.println(e.getProfil().getPhoto());
 	    });
-		model.addAttribute("utilisateurs",utls);
+		model.addAttribute("utilisateurs",utls);*/
 	   
 		Article article = new Article();
 	    Principal p = req.getUserPrincipal();

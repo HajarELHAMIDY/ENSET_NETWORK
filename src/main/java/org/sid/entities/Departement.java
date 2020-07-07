@@ -12,11 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Departement implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idDep;
 	private String intitule;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_ecole")
 	private Ecole ecole;
@@ -49,6 +52,12 @@ public class Departement implements Serializable {
 	}
 	public void setEcole(Ecole ecole) {
 		this.ecole = ecole;
+	}
+	public List<Filiere> getFilieres() {
+		return filieres;
+	}
+	public void setFilieres(List<Filiere> filieres) {
+		this.filieres = filieres;
 	}
 	
 	

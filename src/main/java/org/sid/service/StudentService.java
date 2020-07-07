@@ -1,4 +1,4 @@
-package org.sid.service;
+	package org.sid.service;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,6 +39,8 @@ public class StudentService {
 		try {
 			reader = new CSVReader(new FileReader(csvFile));
 			nextLine = reader.readNext();
+			//format csv
+			//cin,cne,nom,prenom,email,number,address,dateNaissance
 			while ((nextLine = reader.readNext()) != null) {
 			   // nextLine[] is an array of values from the line
 				Login login = createLogin(nextLine[2], nextLine[3]);
@@ -70,6 +72,7 @@ public class StudentService {
 	}
 	public Compte createCompte(String cin,String cne, Date dateNaissance,String email) {
 		Compte p = new Compte(0, cin, cne, email, dateNaissance, false);
+		System.out.println(p.getStatus());
 		return p;
 	}
 	public Utilisateur createUser(String nom,String prenom,String address,Login login,Profil profil,Promo promo,Filiere filiere,Compte compte) {

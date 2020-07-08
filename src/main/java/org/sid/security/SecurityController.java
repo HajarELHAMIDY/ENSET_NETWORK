@@ -48,11 +48,10 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
 		//http.formLogin().loginPage("/login"); //
         
     http.formLogin().defaultSuccessUrl("/default");
-        
-       // http.authorizeRequests().antMatchers("/admin/admins").access("hasRole('ROLE_ADMIN')");
+
 		http.authorizeRequests().antMatchers("/admin/*").hasRole("ADMIN");
 		http.authorizeRequests().antMatchers("/user/*").hasRole("USER");
-		http.authorizeRequests().antMatchers("/home","/login","/css/**").permitAll();
+		http.authorizeRequests().antMatchers("/","/home","/login","/css/**").permitAll();
 		http.exceptionHandling().accessDeniedPage("/403");
 		//http.authorizeRequests().anyRequest().authenticated();
 		

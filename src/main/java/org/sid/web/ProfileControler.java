@@ -89,6 +89,19 @@ public class ProfileControler {
 		return "/user/Profile";
 
 	}
+	@GetMapping(path = "/user/chat")
+	public String chat(Model model, @RequestParam(name = "id", defaultValue = "") Long id, HttpServletRequest req) {
+		Utilisateur utl = utilisateurRepository.findById(id).get();
+	    
+	    
+
+	   
+		model.addAttribute("utilisateur", utl);
+	
+
+		return "index";
+
+	}
 
 	@GetMapping(path = "/user/editProfil")
 	public String edit(Model model, Long id, HttpServletRequest req) {

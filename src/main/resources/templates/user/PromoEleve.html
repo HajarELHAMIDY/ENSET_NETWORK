@@ -234,6 +234,9 @@
 										<a th:href="@{/user/profile(id=${u.idUtl})}"
 											class="btn btn-primary stretched-link"
 											style="margin-left: 40px; width: 180px;">Voir le profil</a>
+											<a href="http://localhost:8080/chat/omar"
+											class="btn btn-primary stretched-link"
+											style="margin-left: 40px; width: 180px;">Message</a>
 									</div>
 								</div>
 
@@ -348,7 +351,7 @@
 <script th:inline="javascript">
 	 /*<![CDATA[*/
     
-    var utilisateurs =  /*[[${utilisateur}]]*/;
+    var utilisateurs =  /*[[${utilisateur}]]*/
 
   /*]]>*/
    window.onload = function(){

@@ -55,7 +55,7 @@ public class AdminController {
 	@Autowired
 	private EcoleRepository ecoledao;
    
-	@GetMapping("/")
+	@GetMapping("/admin")
 	public String def() {
 		return "redirect:/admin/home";
 	}

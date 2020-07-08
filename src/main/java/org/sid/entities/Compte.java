@@ -1,14 +1,14 @@
 package org.sid.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Type;
 @Entity
 public class Compte implements Serializable {
 	@Id @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -17,7 +17,8 @@ public class Compte implements Serializable {
 	private String CNE;
 	private String gmail;
 	private Date dateNaissance;
-	private Boolean status ;
+	@Type(type = "org.hibernate.type.NumericBooleanType")	
+	private boolean status ;
 	
 	public Compte(String cIN, String cNE, String gmail, Date dateNaissance) {
 		super();
@@ -44,10 +45,10 @@ public class Compte implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Boolean getStatus() {
+	public boolean getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 	public int getIdCompte() {

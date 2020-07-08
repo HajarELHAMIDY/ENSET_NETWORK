@@ -13,17 +13,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Filiere  implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idFiliere;
 	private String nom;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "ID_departement")
 	private Departement departement ;
-	
+	@OneToMany(mappedBy = "filiere",fetch = FetchType.LAZY)
+	private List<Promo> promos;
+	public List<Promo> getPromos() {
+		return promos;
+	}
+	public void setPromos(List<Promo> promos) {
+		this.promos = promos;
+	}
+	@JsonIgnore
 	@OneToMany(mappedBy = "filiere",fetch = FetchType.LAZY)
 	List<Utilisateur> users ;
 	public Filiere() {

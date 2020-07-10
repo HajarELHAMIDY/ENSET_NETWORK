@@ -16,6 +16,8 @@ public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long>{
 		public Utilisateur findByid_Profil(@Param("x") Long id);
 	     @Query("select u from Utilisateur u where u.promo.id like :x and u.filiere.nom like :y")  
 	 	public List<Utilisateur> findByid_Promo(@Param("x") Long id,@Param("y") String nom);
+	     @Query("select u from Utilisateur u where u.filiere.nom like :y")  
+		 	public List<Utilisateur> findByFiliere(@Param("y") String nom);
 	     @Query("select u from Utilisateur u where u.compte.idCompte = :x")  
 	   	public Utilisateur findByIdCompte(@Param("x") int id);
 }

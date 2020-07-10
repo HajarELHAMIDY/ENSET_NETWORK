@@ -43,15 +43,22 @@ public class StudentService {
 			//cin,cne,nom,prenom,email,number,address,dateNaissance
 			while ((nextLine = reader.readNext()) != null) {
 			   // nextLine[] is an array of values from the line
-				Login login = createLogin(nextLine[2], nextLine[3]);
-				Profil profil = createProfile(nextLine[5]);
-				String stringDate = nextLine[7];
-				SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-				Compte compte = createCompte(nextLine[0], nextLine[1], new Date(f.parse(stringDate).getTime()), nextLine[4]);
-				Filiere filiere = fr.findById(idFiliere).get();
-				Promo promo = pr.findById(idFiliere).get();
-				Utilisateur user = createUser(nextLine[2], nextLine[3],nextLine[6],login,profil,promo,filiere,compte);
-				ur.save(user);
+				
+				  Login login = createLogin(nextLine[2], nextLine[3]); 
+				  Profil profil =   createProfile(nextLine[5]); String stringDate = nextLine[7]; SimpleDateFormat
+				  f = new SimpleDateFormat("dd-MM-yyyy"); 
+					
+					  Compte compte = createCompte(nextLine[0], nextLine[1], new
+					  Date(f.parse(stringDate).getTime()), nextLine[4]);
+					  
+					  
+					  Filiere filiere = fr.findById(idFiliere).get(); Promo promo =
+					  pr.findById(idFiliere).get(); Utilisateur user = createUser(nextLine[2],
+					  nextLine[3],nextLine[6],login,profil,promo,filiere,compte);
+					  ur.save(user);
+					 
+				 
+				System.out.println(nextLine[0]+nextLine[1]);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -71,7 +78,7 @@ public class StudentService {
 		return p;
 	}
 	public Compte createCompte(String cin,String cne, Date dateNaissance,String email) {
-		Compte p = new Compte(0, cin, cne, email, dateNaissance, false);
+		Compte p = new Compte(cin, cne, email, dateNaissance, false);
 		System.out.println(p.getStatus());
 		return p;
 	}

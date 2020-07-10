@@ -87,9 +87,9 @@
 					</ul>
 					<ul class="navbar-nav ">
 						<li class="nav-item active"><a class="nav-link"
-							href="/navbarexemple"> <i class="fa fa-home"></i> Accueil
+							th:href="@{/user/home}"> <i class="fa fa-home"></i> Accueil
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="/Reseau">
+						<li class="nav-item"><a class="nav-link" th:href="@{/user/mynetwork}">
 								<i class="fa fa-users"></i> Réseau
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
@@ -121,11 +121,19 @@
 								<a class="dropdown-item"
 									th:text="${user.nom}+' '+${user.prenom}"></a>
 								<div class="dropdown-divider" style="font-size: 20px;"></div>
+									<a class="dropdown-item"
+									th:href="@{/user/profile(id=${user.idUtl})}"><i
+									></i>Voir le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+								<a class="dropdown-item"
+									th:href="@{/user/editProfil(id=${user.profil.idProfil})}"><i
+									></i> Gérer le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+              
 
 								<a class="dropdown-item " th:href="@{/logout}"><i
 									class="fa fa-sign-out"></i>Se déconnecter</a>
 							</div></li>
-
 					</ul>
 
 				</div>
@@ -303,7 +311,7 @@
 <script th:inline="javascript">
 	 /*<![CDATA[*/
     
-    var utilisateurs =  /*[[${utilisateurs}]]*/;
+    var utilisateurs =  /*[[${utilisateurs}]]*/
 
   /*]]>*/
    window.onload = function(){

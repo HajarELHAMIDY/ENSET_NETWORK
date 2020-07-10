@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	
-	<groupId>org.sid</groupId>
+	<groupId>org.sid</groupId>	
 	<artifactId>Groupe_Personnel</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Groupe_Personnel</name>

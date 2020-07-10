@@ -3,37 +3,48 @@
  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-  
-  
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  "src/main/resources/templates/user/PageCour.html"
 
-  <title>Cours</title>
 
-  <!-- Custom fonts for this template-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-   <link rel="stylesheet"  type="text/css" href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css">
-   <link href="/css/style.css" rel="stylesheet" type="text/css">
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	
-<link href="img">	
+<title>Promo</title>
+
+<!-- Custom fonts for this template-->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/4.1.0/css/bootstrap.min.css">
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<link href="img">
 <!-- jQuery library -->
 
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- 
-  <!-- Custom styles for this template-->
-  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-  
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-</head>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Custom styles for this template-->
+<link href="/css/sb-admin-2.min.css" rel="stylesheet">
 <style>
   #result {
    position: absolute;
@@ -45,24 +56,16 @@
    box-sizing: border-box;
    z-index: 1001;
   }
-  #result2 {
-   position: absolute;
-   width: 30%;
-   max-width:870px;
-   cursor: point	er;
-   overflow-y: auto;
-   max-height: 400px;
-   box-sizing: border-box;
-   z-index: 1001;
-  }
   .link-class:hover{
    background-color:#f1f1f1;
   }
   </style>
+</head>
 <body id="page-top">
  
-  	<nav
+  <nav
 		class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
 
 		<nav
 			class="navbar navbar-icon-top navbar-expand-lg navbar-dark color fixed-top shadow">
@@ -88,13 +91,14 @@
 					</ul>
 					<ul class="navbar-nav ">
 						<li class="nav-item active"><a class="nav-link"
-							href="/navbarexemple"> <i class="fa fa-home"></i> Accueil
+							th:href="@{/user/home}"> <i class="fa fa-home"></i> Accueil
 						</a></li>
-						<li class="nav-item"><a class="nav-link" href="/Reseau">
+						<li class="nav-item"><a class="nav-link" th:href="@{/user/mynetwork}">
 								<i class="fa fa-users"></i> Réseau
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
-							th:href="@{/user/articles}"> <i class="fa fa-bars"></i> Articles
+							th:href="@{/user/articles}"> <i class="fa fa-bars"></i>
+								Articles
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							th:href="@{/user/cour}"> <i class="fa fa-book"></i> Cours
@@ -121,7 +125,15 @@
 								<a class="dropdown-item"
 									th:text="${user.nom}+' '+${user.prenom}"></a>
 								<div class="dropdown-divider" style="font-size: 20px;"></div>
-
+									<a class="dropdown-item"
+									th:href="@{/user/profile(id=${user.idUtl})}"><i
+									></i>Voir le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+								<a class="dropdown-item"
+									th:href="@{/user/editProfil(id=${user.profil.idProfil})}"><i
+									></i> Gérer le profil</a>
+								<div class="dropdown-divider" style="font-size: 20px;"></div>
+              
 
 								<a class="dropdown-item " th:href="@{/logout}"><i
 									class="fa fa-sign-out"></i>Se déconnecter</a>
@@ -134,9 +146,8 @@
 		</nav>
 
 
-	</nav>
 
-        </nav>
+	</nav>
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -204,7 +215,7 @@
  
    <div class="col-lg-12">
 
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel" style="shadow">
+        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel" >
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -362,7 +373,7 @@
 <script th:inline="javascript">
 	 /*<![CDATA[*/
     
-    var utilisateurs =  /*[[${utilisateurs}]]*/;
+    var utilisateurs =  /*[[${utilisateurs}]]*/
 
   /*]]>*/
     window.onload = function(){
@@ -418,7 +429,7 @@
 	}
 /*<![CDATA[*/
     
-    var cours =  /*[[${crs}]]*/;
+    var cours =  /*[[${crs}]]*/
 
   /*]]>*/
   window.onload = function(){

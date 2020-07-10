@@ -64,6 +64,7 @@ public class AdminController {
 	public String notAutorized() {
 		return "403";
 	}
+	
 
 	@GetMapping("/admin/home")
 	public String home(Model model, HttpServletRequest  req) {

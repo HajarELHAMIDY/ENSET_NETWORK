@@ -1,4 +1,4 @@
-package org.sid.web;
+ package org.sid.web;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.sid.dao.*;
 import  org.sid.entities.*;
 @Controller
@@ -39,7 +39,7 @@ public class UserController {
 	    List<Utl> utls = new ArrayList<Utl>();
 	    
 
-	  /*  utilisateurs.forEach(e->{
+	   utilisateurs.forEach(e->{
 	    	//System.out.println(e.getNom());
 	    	//System.out.println(e.getProfil().getPhoto());
 	    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
@@ -52,7 +52,7 @@ public class UserController {
 	    	System.out.println(e.getCompte().getCNE());
 	    	System.out.println(e.getProfil().getPhoto());
 	    });
-		model.addAttribute("utilisateurs",utls);*/
+		model.addAttribute("utilisateurs",utls);
 	   
 		Article article = new Article();
 	    Principal p = req.getUserPrincipal();
@@ -63,6 +63,30 @@ public class UserController {
 
 		model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
 		return "/user/ArticlePage";
+	}
+	@GetMapping("/user/home")
+	public String userHome(Model model ,HttpServletRequest  req) {
+		List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+	    List<Utl> utls = new ArrayList<Utl>();
+	    
+
+	   utilisateurs.forEach(e->{
+	    	//System.out.println(e.getNom());
+	    	//System.out.println(e.getProfil().getPhoto());
+	    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+			String dt_ent = date_ent[0];
+			String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+			String dt_srt = date_sort[0];
+			String promo = dt_ent + "-" + dt_srt;
+	    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+	    utls.add(utl);
+	    	System.out.println(e.getCompte().getCNE());
+	    	System.out.println(e.getProfil().getPhoto());
+	    });
+		model.addAttribute("utilisateurs",utls);
+		 Principal p = req.getUserPrincipal();
+		 model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
+		return "index2";
 	}
 	
 	@GetMapping("/user/articles/ArticleForm")
@@ -103,6 +127,37 @@ public class UserController {
 		else {
 		return "redirect:/user/articles";
 		}
+	}
+	@GetMapping(path = "/user/mynetwork")
+    public String profil(HttpServletRequest  req,Model model) {
+		
+	    List<Utilisateur> utls  =  utilisateurRepository.findAll();
+	    List<Utilisateur> utilisateurs = utilisateurRepository.findAll();
+	    List<Utl> utlss = new ArrayList<Utl>();
+	    
+	    Principal p = req.getUserPrincipal();
+	    utilisateurs.forEach(e->{
+	    	System.out.println(e.getNom());
+	    	System.out.println(e.getProfil().getPhoto());
+	    	String[] date_ent = e.getPromo().getDat_ent().toString().split("-");
+			String dt_ent = date_ent[0];
+			String[] date_sort = e.getPromo().getDat_srt().toString().split("-");
+			String dt_srt = date_sort[0];
+			String promo = dt_ent + "-" + dt_srt;
+	    Utl utl = new Utl(e.getIdUtl(), e.getNom(), e.getPrenom(), e.getProfil().getPhoto(),e.getFiliere().getNom(),promo);
+	    utlss.add(utl);
+	    	System.out.println(e.getCompte().getCNE());
+	    	System.out.println(e.getProfil().getPhoto());
+	    });
+		model.addAttribute("utilisateur",utlss);
+	    model.addAttribute("user",logindao.findByUsername(p.getName()).getUser());
+		model.addAttribute("filieres", filiereRepository.findAll());
+		model.addAttribute("user", logindao.findByUsername(p.getName()).getUser());
+		model.addAttribute("utilisateurs", utls);
+
+	return "/user/resaux";
+
+	
 	}
 
 }

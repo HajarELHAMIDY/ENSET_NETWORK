@@ -99,7 +99,7 @@ public class ProfileControler {
 		model.addAttribute("utilisateur", utl);
 	
 
-		return "index";
+		return "/user/index";
 
 	}
 

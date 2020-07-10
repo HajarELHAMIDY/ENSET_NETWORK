@@ -25,13 +25,23 @@ public class Compte implements Serializable {
 		CIN = cIN;
 		CNE = cNE;
 		this.gmail = gmail;
-		status = false;
+		status = false;	
 		this.dateNaissance = dateNaissance;
 	
 	}
 	public Compte(int id,String cIN, String cNE, String gmail, Date dateNaissance, Boolean status) {
 		super();
 		idCompte = id;
+		CIN = cIN;
+		CNE = cNE;
+		this.gmail = gmail;
+		status = false;
+		this.dateNaissance = dateNaissance;
+	
+	}
+	public Compte(String cIN, String cNE, String gmail, Date dateNaissance, Boolean status) {
+		super();
+	
 		CIN = cIN;
 		CNE = cNE;
 		this.gmail = gmail;

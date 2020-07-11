@@ -24,6 +24,7 @@ public class ActivateController {
 	private CompteRepository compteRepository;
 	@Autowired
 	private UtilisateurRepository ur;
+	
 	@GetMapping("/activate")
 	public String openForm(Model model) {
 		model.addAttribute("details", new ActivateLogin());
@@ -33,6 +34,8 @@ public class ActivateController {
 	public String getData(@ModelAttribute ActivateLogin details) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		Compte compte = compteRepository.findCompteByCINandCNE(details.getCin(), details.getCne());
+		compte.setStatus(true);
+		compteRepository.save(compte);
 		System.out.println(compte.getIdCompte());
 		Utilisateur user = ur.findByIdCompte(compte.getIdCompte());
 		msg.setTo(compte.getGmail());

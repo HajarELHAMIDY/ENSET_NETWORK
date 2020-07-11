@@ -19,6 +19,7 @@ import org.sid.entities.Filiere;
 import org.sid.entities.Login;
 import org.sid.entities.Profil;
 import org.sid.entities.Promo;
+import org.sid.entities.Roles;
 import org.sid.entities.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ import com.opencsv.CSVReader;
 
 @Service
 public class StudentService {
-	private String defaultImg = "default.jpg";
+	private String defaultImg = "default.png";
 	@Autowired
 	private FiliereRepository fr;
 	@Autowired
@@ -54,12 +55,15 @@ public class StudentService {
 					  Compte compte = createCompte(nextLine[0], nextLine[1], new
 					  Date(f.parse(stringDate).getTime()), nextLine[4]);
 					  
-					  compteRepository.save(compte);
-						/*
-						 * Filiere filiere = fr.findById(idFiliere).get(); Promo promo =
-						 * pr.findById(idFiliere).get(); Utilisateur user = createUser(nextLine[2],
-						 * nextLine[3],nextLine[6],login,profil,promo,filiere,compte); ur.save(user);
-						 */
+					
+						  Filiere filiere = fr.findById(idFiliere).get();
+						  Promo promo = pr.findById(idFiliere).get(); 
+						  Utilisateur user = createUser(nextLine[2],
+						  nextLine[3],nextLine[6],login,profil,promo,filiere,compte);
+						  login.setUser(user);
+						  login.setActive(true);
+						  ur.save(user);
+						 
 					 
 				 
 				System.out.println(nextLine[0]+nextLine[1]);
@@ -73,6 +77,8 @@ public class StudentService {
 		Login l = new Login();
 		l.setPwd(generateRandomPassword());
 		l.setUsername(prenom+"." + nom +"@ENSET");
+		l.setRole(new Roles("USER"));
+		
 		return l;
 	}
 	public Profil createProfile(String number) {
@@ -82,7 +88,7 @@ public class StudentService {
 		return p;
 	}
 	public Compte createCompte(String cin,String cne, Date dateNaissance,String email) {
-		Compte p = new Compte(cin, cne, email, dateNaissance, false);
+		Compte p = new Compte(0,cin, cne, email, dateNaissance, false);
 		System.out.println(p.getStatus());
 		return p;
 	}

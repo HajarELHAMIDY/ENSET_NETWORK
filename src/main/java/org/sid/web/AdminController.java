@@ -78,7 +78,7 @@ public class AdminController {
 		model.addAttribute("filiere", f);
 		Principal p = req.getUserPrincipal();
 		Login login = logindao.findByUsername(p.getName());
-		System.err.println(login.getAdmin().getPrenom());
+		//System.err.println(login.getAdmin().getPrenom());
 		return "HomeAdmin";
 	}
 

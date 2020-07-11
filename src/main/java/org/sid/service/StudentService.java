@@ -10,6 +10,7 @@ import java.util.List;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
+import org.sid.dao.CompteRepository;
 import org.sid.dao.FiliereRepository;
 import org.sid.dao.PromoRepository;
 import org.sid.dao.UtilisateurRepository;
@@ -33,6 +34,8 @@ public class StudentService {
 	private PromoRepository pr;
 	@Autowired
 	private UtilisateurRepository ur;
+	@Autowired
+	private CompteRepository compteRepository;
 	public void createAccounts(String csvFile,Long idPromo,Long idFiliere) {
 		CSVReader reader ;
 		String [] nextLine;
@@ -51,11 +54,12 @@ public class StudentService {
 					  Compte compte = createCompte(nextLine[0], nextLine[1], new
 					  Date(f.parse(stringDate).getTime()), nextLine[4]);
 					  
-					  
-					  Filiere filiere = fr.findById(idFiliere).get(); Promo promo =
-					  pr.findById(idFiliere).get(); Utilisateur user = createUser(nextLine[2],
-					  nextLine[3],nextLine[6],login,profil,promo,filiere,compte);
-					  ur.save(user);
+					  compteRepository.save(compte);
+						/*
+						 * Filiere filiere = fr.findById(idFiliere).get(); Promo promo =
+						 * pr.findById(idFiliere).get(); Utilisateur user = createUser(nextLine[2],
+						 * nextLine[3],nextLine[6],login,profil,promo,filiere,compte); ur.save(user);
+						 */
 					 
 				 
 				System.out.println(nextLine[0]+nextLine[1]);

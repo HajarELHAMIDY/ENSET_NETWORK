@@ -22,7 +22,14 @@ public class Cour implements Serializable {
 	private Long idCour;
 	private String title;
 	private String auteur;
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@Column(name = "name")
     @JsonView(View.FileInfo.class)
 	private String name;
@@ -106,6 +113,18 @@ public class Cour implements Serializable {
 	}
 	public void setPic(byte[] pic) {
 		this.pic = pic;
+	}
+	public Cour(Long idCour, String title, String auteur, String image, String name, String mimetype, byte[] pic,
+			TypeCour type) {
+		super();
+		this.idCour = idCour;
+		this.title = title;
+		this.auteur = auteur;
+		this.image = image;
+		this.name = name;
+		this.mimetype = mimetype;
+		this.pic = pic;
+		this.type = type;
 	}
 
 	

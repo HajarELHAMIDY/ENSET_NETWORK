@@ -163,6 +163,7 @@ public class AdminController {
 			cour.setName(file.getOriginalFilename());
 			cour.setMimetype(file.getContentType());
 			cour.setPic(file.getBytes());
+			cour.setImage("defaultCour.jpg");
 			courdao.save(cour);
 			return "redirect:/admin/cours";
 

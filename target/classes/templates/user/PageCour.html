@@ -101,7 +101,7 @@
 								Articles
 						</a></li>
 						<li class="nav-item active"><a class="nav-link"
-							th:href="@{/user/cour}"> <i class="fa fa-book"></i> Cours
+							href="http://localhost:8080" target="_blank"r}"> <i class="fa fa-book"></i> Cours
 						</a></li>
 						<li class="nav-item"><a class="nav-link" href="/Message">
 								<i class="fa fa-envelope"></i> Message
@@ -251,7 +251,7 @@
 
           <div class="col-lg-4 col-md-6 mb-4" th:each="r:${cours}" >
             <div class="card h-100">
-              <a th:href="@{/user/downloadFile(cour=${r.idCour})}"><img class="card-img-top"  src="/img/jee.jpg"  alt=""></a>
+              <a th:href="@{/user/downloadFile(cour=${r.idCour})}"><img class="card-img-top"  th:src="@{${'/img/' + r.image}}"  alt=""></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a th:href="@{/user/downloadFile(cour=${r.idCour})}"><label th:Text="${r.title}"></label></a>
